@@ -42,16 +42,35 @@ find_package(${NAMESPACE}Core CONFIG REQUIRED)
 find_package(Firebolt CONFIG REQUIRED)
 find_package(${FIREBOLT_NAMESPACE}SDK CONFIG REQUIRED)
 
+# Include Google Test
+include(ExternalProject)
+ExternalProject_Add(
+    googletest
+    GIT_REPOSITORY    https://github.com/google/googletest.git
+    GIT_TAG           release-1.11.0
+    PREFIX            ${CMAKE_BINARY_DIR}/googletest
+    INSTALL_DIR       ${CMAKE_BINARY_DIR}/googletest
+    CMAKE_ARGS        -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/googletest
+)
+
+include(FetchContent)
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+FetchContent_MakeAvailable(json)
+
 set(TESTAPP TestFireboltCore)
 
 message("Setup ${TESTAPP}")
 
-add_executable(${TESTAPP} CoreSDKTest.cpp Main.cpp)
+add_executable(${TESTAPP} CoreSDKTest.cpp Unit.cpp)
+add_dependencies(${TESTAPP} googletest)
 
 target_link_libraries(${TESTAPP}
     PRIVATE
         ${NAMESPACE}Core::${NAMESPACE}Core
         ${FIREBOLT_NAMESPACE}SDK::${FIREBOLT_NAMESPACE}SDK
+        ${CMAKE_BINARY_DIR}/googletest/lib/libgtest.a
+        ${CMAKE_BINARY_DIR}/googletest/lib/libgtest_main.a
+        ${CMAKE_BINARY_DIR}/googletest/lib/libgmock.a
 )
 
 target_include_directories(${TESTAPP}
@@ -59,6 +78,7 @@ target_include_directories(${TESTAPP}
         $<BUILD_INTERFACE:${FIREBOLT_PATH}/usr/include/${FIREBOLT_NAMESPACE}SDK>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SRC_DIR}/>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SRC_DIR}/../>
+        PRIVATE ${CMAKE_BINARY_DIR}/googletest/include
 )
 
 if (POLYMORPHICS_REDUCER_METHODS)
@@ -75,7 +95,7 @@ set_target_properties(${TESTAPP} PROPERTIES
 add_custom_command(
     TARGET ${TESTAPP}
     POST_BUILD
-    COMMENT "=================== Installing TestApp ======================"
+    COMMENT "=================== Running Unit Tests ======================"
     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/${FIREBOLT_NAMESPACE}/usr/bin
         COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${TESTAPP} ${CMAKE_BINARY_DIR}/${FIREBOLT_NAMESPACE}/usr/bin
 )
