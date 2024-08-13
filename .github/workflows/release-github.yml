@@ -38,6 +38,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
+            python3-pip \
             build-essential \
             cmake \
             pkg-config \
@@ -64,6 +65,10 @@ jobs:
             sudo \
             ninja-build \
             dpkg
+
+      # Install jsonref
+      - name: Install jsonref
+        run: pip3 install jsonref
 
       - name: Set up NPM token
         env:
