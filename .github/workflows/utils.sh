@@ -196,6 +196,10 @@ function generateSource() {
   if [ $? -eq 0 ]
   then
         echo "Native Discovery SDK generated successfully"
+        echo " Discovery SDK Location"
+        cd build/cpp/src/
+        ls -la
+        echo " ************ Source Generation Completed for Discovery SDK ************"
   else
     echo "Native Discovery SDK generation failed"
     exit 1
