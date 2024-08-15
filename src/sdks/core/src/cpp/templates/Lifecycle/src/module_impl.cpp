@@ -17,6 +17,7 @@
 
 
 #include "${info.title.lowercase}_impl.h"
+#include "firebolt.h"
 
 ${if.implementations}
 namespace Firebolt {
