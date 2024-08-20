@@ -173,37 +173,37 @@ function generateSource() {
     exit 1
   fi
 
-  echo "Generating source for Manage SDK"
-  cd ../../../../manage
-  npm run cpp
+  # echo "Generating source for Manage SDK"
+  # cd ../../../../manage
+  # npm run cpp
 
-  if [ $? -eq 0 ]
-  then
-        echo "Native Manage SDK generated successfully"
-        echo " Manage SDK Location"
-        cd build/cpp/src/
-        ls -la
-        echo " ************ Source Generation Completed for Manage SDK ************"
-  else
-    echo "Native Manage SDK generation failed"
-    exit 1
-  fi
+  # if [ $? -eq 0 ]
+  # then
+  #       echo "Native Manage SDK generated successfully"
+  #       echo " Manage SDK Location"
+  #       cd build/cpp/src/
+  #       ls -la
+  #       echo " ************ Source Generation Completed for Manage SDK ************"
+  # else
+  #   echo "Native Manage SDK generation failed"
+  #   exit 1
+  # fi
 
-  echo "Generate source for Discovery SDK"
-  cd ../../../../discovery
-  npm run cpp
+  # echo "Generate source for Discovery SDK"
+  # cd ../../../../discovery
+  # npm run cpp
 
-  if [ $? -eq 0 ]
-  then
-        echo "Native Discovery SDK generated successfully"
-        echo " Discovery SDK Location"
-        cd build/cpp/src/
-        ls -la
-        echo " ************ Source Generation Completed for Discovery SDK ************"
-  else
-    echo "Native Discovery SDK generation failed"
-    exit 1
-  fi
+  # if [ $? -eq 0 ]
+  # then
+  #       echo "Native Discovery SDK generated successfully"
+  #       echo " Discovery SDK Location"
+  #       cd build/cpp/src/
+  #       ls -la
+  #       echo " ************ Source Generation Completed for Discovery SDK ************"
+  # else
+  #   echo "Native Discovery SDK generation failed"
+  #   exit 1
+  # fi
 }
 
 function cloneAndInstallThunder() {
