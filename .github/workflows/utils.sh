@@ -291,6 +291,9 @@ function buildCoreCPPSDK() {
   chmod +x ./build.sh
   sed -i -e 's/prefix=/prefix /g' build.sh
   cat ./build.sh
+
+  echo "***************** firebolt.h *****************"
+  cat include/firebolt.h
   ./build.sh -s "$current_dir/install" || exit 9999
   ./build.sh -f "$current_dir/data/firebolt-core-native-sdk-${FIREBOLT_VERSION}/build/Firebolt" -s "$current_dir/install"
 
