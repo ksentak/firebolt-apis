@@ -73,9 +73,9 @@ jobs:
         run: |
           echo "CC=arm-linux-gnueabihf-gcc-9" >> $GITHUB_ENV
           echo "CXX=arm-linux-gnueabihf-g++-9" >> $GITHUB_ENV
-          echo "CFLAGS='-O2 -march=armv7-a'" >> $GITHUB_ENV
-          echo "CXXFLAGS='-O2 -march=armv7-a'" >> $GITHUB_ENV
-          echo "LDFLAGS='-L/usr/arm-linux-gnueabihf/lib'" >> $GITHUB_ENV
+          echo "CFLAGS=-O2" >> $GITHUB_ENV
+          echo "CXXFLAGS=-O2" >> $GITHUB_ENV
+          echo "LDFLAGS=-L/usr/arm-linux-gnueabihf/lib" >> $GITHUB_ENV
           echo "SYSROOT=/usr/arm-linux-gnueabihf" >> $GITHUB_ENV
           echo "PKG_CONFIG_PATH=$SYSROOT/lib/pkgconfig" >> $GITHUB_ENV
           echo "LD_LIBRARY_PATH=$SYSROOT/lib" >> $GITHUB_ENV
@@ -97,8 +97,8 @@ jobs:
       - name: Install jsonref
         run: pip3 install jsonref 
 
-      - name: Generate js sdk
-        run: npm run dist
+      # - name: Generate js sdk
+      #   run: npm run dist
 
       - name: Get version from package.json
         run: |
@@ -106,10 +106,10 @@ jobs:
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
           echo "build_cpp_source=true" >> $GITHUB_ENV
 
-      - name: Generate native sdk source
-        if: env.build_cpp_source == 'true'
-        run: |
-          .github/workflows/utils.sh generateSource
+      # - name: Generate native sdk source
+      #   if: env.build_cpp_source == 'true'
+      #   run: |
+      #     .github/workflows/utils.sh generateSource
       
       - name: Clone and Install Thunder
         if: env.build_cpp_source == 'true'
@@ -117,15 +117,15 @@ jobs:
         run: |
           .github/workflows/utils.sh cloneAndInstallThunder
       
-      - name: Build Core SDK CPP
-        if: env.build_cpp_source == 'true'
-        id: build_core_cpp
-        run: |
-          .github/workflows/utils.sh buildCoreCPPSDK $RELEASE_VERSION
+      # - name: Build Core SDK CPP
+      #   if: env.build_cpp_source == 'true'
+      #   id: build_core_cpp
+      #   run: |
+      #     .github/workflows/utils.sh buildCoreCPPSDK $RELEASE_VERSION
 
-      - name: Upload SDK artifact
-        if: success()
-        uses: actions/upload-artifact@v3
-        with:
-          name: core-sdk
-          path: firebolt-apis/src/sdks/core/build/cpp/src/*.tgz
+      # - name: Upload SDK artifact
+      #   if: success()
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: core-sdk
+      #     path: firebolt-apis/src/sdks/core/build/cpp/src/*.tgz
