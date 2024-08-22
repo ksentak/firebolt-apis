@@ -57,7 +57,7 @@ jobs:
             dpkg
             
       - name: Add toolchain for GCC 9
-        run: sudo add-apt-repository ppa:ubuntu-toolchain-r/test && apt-get update
+        run: sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y && sudo apt-get update
 
       - name: Install cross compilation tools
         run: |
