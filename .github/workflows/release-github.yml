@@ -78,7 +78,7 @@ jobs:
           echo "LDFLAGS='-L/usr/arm-linux-gnueabihf/lib'" >> $GITHUB_ENV
           echo "SYSROOT=/usr/arm-linux-gnueabihf" >> $GITHUB_ENV
           echo "PKG_CONFIG_PATH=$SYSROOT/lib/pkgconfig" >> $GITHUB_ENV
-          echo "LD_LIBRARY_PATH=$SYSROOT/lib" >> $GITHUB_
+          echo "LD_LIBRARY_PATH=$SYSROOT/lib" >> $GITHUB_ENV
           
       - name: Install zlib from source
         run: |
