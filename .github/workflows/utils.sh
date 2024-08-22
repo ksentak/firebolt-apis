@@ -278,6 +278,8 @@ function cloneAndInstallThunder() {
   -DPORT="55555" \
   -DPROXYSTUB_PATH="${PWD}/install/usr/lib/wpeframework/proxystubs" \
   -DSYSTEM_PATH="${PWD}/install/usr/lib/wpeframework/plugins" \
+  -DZLIB_LIBRARY=${SYSROOT}/lib/libz.so \
+  -DZLIB_INCLUDE_DIR=${SYSROOT}/include \
   -DVOLATILE_PATH="tmp" && echo "Thunder configure succeeded" || exit 9999
 
   cmake --build build/Thunder --target install && echo "Thunder Build succeeded" || exit 9999

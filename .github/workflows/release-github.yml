@@ -85,9 +85,13 @@ jobs:
           wget https://zlib.net/zlib-1.3.1.tar.gz
           tar -xzf zlib-1.3.1.tar.gz
           cd zlib-1.3.1
-          CFLAGS="-O2 -pipe" CC=${CC} ./configure --prefix=${SYSROOT}
+          ./configure --prefix=${SYSROOT} --libdir=${SYSROOT}/lib --includedir=${SYSROOT}/include
           make
           sudo make install
+
+          # Verify that zlib was installed correctly
+          ls -l ${SYSROOT}/lib/libz.so
+          ls -l ${SYSROOT}/include/zlib.h
 
       - name: Set file permissions
         run: |
