@@ -267,10 +267,6 @@ function cloneAndInstallThunder() {
   -DBUILD_SHARED_LIBS=ON \
   -DBINDING="127.0.0.1" \
   -DCMAKE_BUILD_TYPE="Debug" \
-  -DCMAKE_SYSTEM_NAME=Linux \
-  -DCMAKE_SYSTEM_PROCESSOR=armv7-a \
-  -DCMAKE_C_COMPILER=${CC} \
-  -DCMAKE_CXX_COMPILER=${CXX} \
   -DCMAKE_INSTALL_PREFIX="install/usr" \
   -DCMAKE_MODULE_PATH="${PWD}/install/usr/include/WPEFramework/Modules" \
   -DDATA_PATH="${PWD}/install/usr/share/WPEFramework" \
@@ -278,8 +274,6 @@ function cloneAndInstallThunder() {
   -DPORT="55555" \
   -DPROXYSTUB_PATH="${PWD}/install/usr/lib/wpeframework/proxystubs" \
   -DSYSTEM_PATH="${PWD}/install/usr/lib/wpeframework/plugins" \
-  -DZLIB_LIBRARY=${SYSROOT}/lib/libz.so \
-  -DZLIB_INCLUDE_DIR=${SYSROOT}/include \
   -DVOLATILE_PATH="tmp" && echo "Thunder configure succeeded" || exit 9999
 
   cmake --build build/Thunder --target install && echo "Thunder Build succeeded" || exit 9999
