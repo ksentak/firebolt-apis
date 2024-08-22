@@ -57,7 +57,7 @@ jobs:
             dpkg
             
       - name: Add toolchain for GCC 9
-        run: add-apt-repository ppa:ubuntu-toolchain-r/test && apt-get update
+        run: sudo add-apt-repository ppa:ubuntu-toolchain-r/test && apt-get update
 
       - name: Install cross compilation tools
         run: |
@@ -123,9 +123,9 @@ jobs:
         run: |
           .github/workflows/utils.sh buildCoreCPPSDK $RELEASE_VERSION
 
-      - name: Upload SDK artifact
-        if: success()
-        uses: actions/upload-artifact@v3
-        with:
-          name: core-sdk
-          path: firebolt-apis/src/sdks/core/build/cpp/src/*.tgz
+      # - name: Upload SDK artifact
+      #   if: success()
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: core-sdk
+      #     path: firebolt-apis/src/sdks/core/build/cpp/src/*.tgz
