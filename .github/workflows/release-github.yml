@@ -45,28 +45,29 @@ jobs:
         if: steps.check_build.outputs.files_exists == 'false' || (github.ref_name == 'main' && github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch')
         run: echo "build_cpp_source=false" >> $GITHUB_ENV
 
+      - name: Generate native sdk source
+        if: env.build_cpp_source == 'true'
+        run: |
+          .github/workflows/utils.sh generateSource
+
       - name: Clone and Install Thunder
         if: env.build_cpp_source == 'true'
         id: install_thunder
         run: |
           .github/workflows/utils.sh cloneAndInstallThunder
 
-      - name: Generate native sdk source
-        if: env.build_cpp_source == 'true'
-        run: |
-          .github/workflows/utils.sh generateSource
-
       - name: Build Core SDK CPP
         if: env.build_cpp_source == 'true'
         id: build_core_cpp
         run: |
-          .github/workflows/utils.sh buildCoreCPPSDK $RELEASE_VERSION
+          .github/workflows/utils.sh buildCoreCPPSDK 1.3.0-next.1
 
-      # - name: Build Manage SDK CPP
-      #   if: env.build_cpp_source == 'true'
-      #   id: build_manage_cpp
-      #   run: |
-      #     .github/workflows/utils.sh buildManageCPPSDK $RELEASE_VERSION
+      - name: Build Manage SDK CPP
+        if: env.build_cpp_source == 'true'
+        id: build_manage_cpp
+        run: |
+          .github/workflows/utils.sh buildManageCPPSDK 1.3.0-next.1
+
       # - name: Build Discovery SDK CPP
       #   if: env.build_cpp_source == 'true'
       #   id: build_discovery_cpp
